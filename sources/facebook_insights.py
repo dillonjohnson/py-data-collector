@@ -58,5 +58,5 @@ def gather_page_insights(page_id,
 if __name__ == '__main__':
     gather_page_insights('897393153671209',
                          'EAAG5Hz1ideoBAEskQ8DUUePxBVQkOOH1vrz4ZAMls4AB96I0e3PZBBLhb6cvEXAyDHgTsMCS25qTBQ4OYAJBS0O2qHuShamkwv7oJWmQZCzGBiKy189QiJV3CeDHdhwVjC4X0owDQWrEUTMHrjU1OlwCg9H0dZAXcXqCf46KFurijTU92ow0cBTMY3MxLZBQZD',
-                         datetime.datetime(2020, 3,1),
+                         datetime.datetime(2019,11,1),
                          datetime.datetime(2020,4,1))
