@@ -13,7 +13,8 @@ def parse_insights(data):
                 for k, v in value.items():
                     out_data.append(
                         {
-                            "name": f"{name}_{period}_{k.replace(' ', '_')}",
+                            "name": f"{name}_{period}",
+                            "subname": k.replace(' ', '_'),
                             "value": v,
                             "timestamp": end_time
                         }

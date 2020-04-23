@@ -51,7 +51,7 @@ def gather_page_insights(page_id,
                          since=datetime.datetime.today()-datetime.timedelta(days=1),
                          until=datetime.datetime.today()):
     params = {
-        'metric': 'post_activity,page_impressions_organic,page_fan_removes,page_places_checkin_mobile,page_impressions,page_places_checkin_total,page_posts_impressions_organic_unique,page_consumptions_unique,page_impressions_organic_unique,page_engaged_users,page_posts_impressions,page_fan_removes_unique,page_posts_impressions_viral_unique,page_posts_impressions_paid_unique,page_impressions_unique,page_negative_feedback,page_content_activity_unique,page_negative_feedback_unique,page_fan_adds_unique,page_consumptions,page_fan_adds,page_impressions_paid_unique,page_places_checkin_total_unique,page_posts_impressions_viral,page_content_activity,post_activity_unique,post_negative_feedback_unique,page_posts_impressions_paid,page_places_checkin_mobile_unique,page_impressions_paid,page_impressions_viral_unique,page_impressions_viral,page_fans,post_negative_feedback,page_posts_impressions_unique',
+        'metric': '',
         'access_token': token
     }
     return _get(page_id, 'insights', params=params, since=since, until=until)
