@@ -2,6 +2,9 @@
 import requests
 import logging
 import datetime
+from sources.common import append_object_id
+from functools import partial
+from transformers.common import format_for_parquet
 
 FB_VERSION = '6.0'
 BASE_URL = f"https://graph.facebook.com/v{FB_VERSION}/"
@@ -23,7 +26,6 @@ def is_done(since, query_since):
     else:
         return False
 
-
 def _get(object_id, endpoint, params, since, until):
     url = BASE_URL + object_id + "/" + endpoint
     print(f'Calling URL: {url}')
@@ -44,6 +46,7 @@ def _get(object_id, endpoint, params, since, until):
             is_paging = False
         else:
             query_since, query_until = _slide_since_and_until(query_since, query_until, since)
+    data = list(map(partial(append_object_id, object_id=object_id), data))
     return data
 
 def gather_page_insights(page_id,
@@ -51,7 +54,7 @@ def gather_page_insights(page_id,
                          since=datetime.datetime.today()-datetime.timedelta(days=1),
                          until=datetime.datetime.today()):
     params = {
-        'metric': '',
+        'metric': 'post_activity,page_impressions_organic,page_fan_removes,page_places_checkin_mobile,page_impressions,page_places_checkin_total,page_posts_impressions_organic_unique,page_consumptions_unique,page_impressions_organic_unique,page_engaged_users,page_posts_impressions,page_fan_removes_unique,page_posts_impressions_viral_unique,page_posts_impressions_paid_unique,page_impressions_unique,page_negative_feedback,page_content_activity_unique,page_negative_feedback_unique,page_fan_adds_unique,page_consumptions,page_fan_adds,page_impressions_paid_unique,page_places_checkin_total_unique,page_posts_impressions_viral,page_content_activity,post_activity_unique,post_negative_feedback_unique,page_posts_impressions_paid,page_places_checkin_mobile_unique,page_impressions_paid,page_impressions_viral_unique,page_impressions_viral,page_fans,post_negative_feedback,page_posts_impressions_unique',
         'access_token': token
     }
     return _get(page_id, 'insights', params=params, since=since, until=until)
@@ -66,4 +69,6 @@ if __name__ == '__main__':
     from transformers.facebook_insights import parse_insights
     parsed = parse_insights(data)
     from pprint import pprint
-    pprint(parsed)
+    # pprint(parsed)
+    finalized = format_for_parquet(parsed)
+    pprint(finalized)

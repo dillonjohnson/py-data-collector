@@ -1,7 +1,10 @@
 from datetime import datetime
+import json
 
 def parse_insights(data):
     out_data = []
+    json_payload = json.dumps(data)
+    included_in_multi = False
     for d in data:
         name = d['name']
         period = d['period']
@@ -16,15 +19,18 @@ def parse_insights(data):
                             "name": f"{name}_{period}",
                             "subname": k.replace(' ', '_'),
                             "value": v,
-                            "timestamp": end_time
+                            "effective_timestamp": end_time,
+                            "json_payload": "" if included_in_multi else json_payload
                         }
                     )
+                    included_in_multi = True
             else:
                 out_data.append(
                     {
                         "name": f"{name}_{period}",
                         "value": value,
-                        "timestamp": end_time
+                        "effective_timestamp": end_time,
+                        "json_payload": json_payload
                     }
                 )
     return out_data
