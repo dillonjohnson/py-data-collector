@@ -44,6 +44,7 @@ def _get(object_id, endpoint, params, since, until):
             is_paging = False
         else:
             query_since, query_until = _slide_since_and_until(query_since, query_until, since)
+    return data
 
 def gather_page_insights(page_id,
                          token,
@@ -56,7 +57,13 @@ def gather_page_insights(page_id,
     return _get(page_id, 'insights', params=params, since=since, until=until)
 
 if __name__ == '__main__':
-    gather_page_insights('897393153671209',
-                         'EAAG5Hz1ideoBAEskQ8DUUePxBVQkOOH1vrz4ZAMls4AB96I0e3PZBBLhb6cvEXAyDHgTsMCS25qTBQ4OYAJBS0O2qHuShamkwv7oJWmQZCzGBiKy189QiJV3CeDHdhwVjC4X0owDQWrEUTMHrjU1OlwCg9H0dZAXcXqCf46KFurijTU92ow0cBTMY3MxLZBQZD',
-                         datetime.datetime(2019,11,1),
-                         datetime.datetime(2020,4,1))
+    data = gather_page_insights('897393153671209',
+                                'EAAG5Hz1ideoBAEskQ8DUUePxBVQkOOH1vrz4ZAMls4AB96I0e3PZBBLhb6cvEXAyDHgTsMCS25qTBQ4OYAJBS0O2qHuShamkwv7oJWmQZCzGBiKy189QiJV3CeDHdhwVjC4X0owDQWrEUTMHrjU1OlwCg9H0dZAXcXqCf46KFurijTU92ow0cBTMY3MxLZBQZD',
+                                datetime.datetime(2020, 4, 2),
+                                datetime.datetime(2020, 4, 3))
+    import pickle
+    pickle.dumps(data)
+    from transformers.facebook_insights import parse_insights
+    parsed = parse_insights(data)
+    from pprint import pprint
+    pprint(parsed)
