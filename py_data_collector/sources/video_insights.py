@@ -1,6 +1,5 @@
 # import facebook
 import requests
-import logging
 import datetime
 
 FB_VERSION = '6.0'
@@ -24,7 +23,7 @@ def gather_video_insights(page_id,
 if __name__ == '__main__':
     data = gather_video_insights('2611719889065046',
                                 'EAAG5Hz1ideoBAEskQ8DUUePxBVQkOOH1vrz4ZAMls4AB96I0e3PZBBLhb6cvEXAyDHgTsMCS25qTBQ4OYAJBS0O2qHuShamkwv7oJWmQZCzGBiKy189QiJV3CeDHdhwVjC4X0owDQWrEUTMHrjU1OlwCg9H0dZAXcXqCf46KFurijTU92ow0cBTMY3MxLZBQZD')
-    from transformers.facebook_insights import parse_insights
+    from py_data_collector.transformers.facebook_insights import parse_insights
     parsed = parse_insights(data)
     from pprint import pprint
     pprint(parsed)

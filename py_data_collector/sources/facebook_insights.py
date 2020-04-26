@@ -1,10 +1,9 @@
 # import facebook
 import requests
-import logging
 import datetime
-from sources.common import append_object_id
+from py_data_collector.sources.common import append_object_id
 from functools import partial
-from transformers.common import format_for_parquet
+from py_data_collector.transformers.common import format_for_parquet
 
 FB_VERSION = '6.0'
 BASE_URL = f"https://graph.facebook.com/v{FB_VERSION}/"
@@ -66,7 +65,7 @@ if __name__ == '__main__':
                                 datetime.datetime(2020, 4, 3))
     import pickle
     pickle.dumps(data)
-    from transformers.facebook_insights import parse_insights
+    from py_data_collector.transformers.facebook_insights import parse_insights
     parsed = parse_insights(data)
     from pprint import pprint
     # pprint(parsed)
