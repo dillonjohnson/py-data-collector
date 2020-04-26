@@ -12,7 +12,11 @@ if os.path.isfile(requirement_path):
 setup(
     name='py-data-collector',
     version='1.0',
-    packages=['py_data_collector'],
+    packages=[
+        'py_data_collector',
+        'py_data_collector.sources',
+        'py_data_collector.transformers'
+    ],
     url='',
     license='',
     author='dillonjohnson',
