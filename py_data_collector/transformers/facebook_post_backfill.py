@@ -11,7 +11,7 @@ def parse_facebook_backfill(data):
         timestamp = parser.parse(item['created_time'])
         out_data.append(
             {
-                'json-payload': json_value,
+                'json_payload': json_value,
                 'effective_timestamp': timestamp,
                 'processed_timestamp': processed_timestamp,
                 'social_network_id': social_network_id,
